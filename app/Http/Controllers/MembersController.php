@@ -70,10 +70,10 @@ class MembersController extends Controller
 
         $years = floor($diff / (365*60*60*24));
 
-//        if ($years < 18) {
-//            $v->errors()->add("date_of_birth", "User must be at least 18 years old");
-//            return redirect()->back()->withErrors($v->errors());
-//        }
+        if ($years < 18) {
+            $v->errors()->add("date_of_birth", "User must be at least 18 years old");
+            return redirect()->back()->withErrors($v->errors());
+        }
 
         if ($v->fails())
         {
