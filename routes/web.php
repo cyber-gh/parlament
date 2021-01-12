@@ -16,9 +16,14 @@ Route::get('/', function () {
     return redirect("/members");
 });
 //
-Route::resource('members', \App\Http\Controllers\MembersController::class);
+Route::resource('members', \App\Http\Controllers\MembersController::class)->middleware('authCheck');
+Route::get("/login", [\App\Http\Controllers\LoginController::class, 'index'])->name("login");
+Route::post("/login", [\App\Http\Controllers\LoginController::class, 'loginRequest']);
+Route::get("/logout", [\App\Http\Controllers\LoginController::class, 'logout'])->name("logout");
 
 
 //
 //Route::get('', [\App\Http\Controllers\MembersController::class, "index"]);
 //Route::get('details/{id}', [\App\Http\Controllers\MembersController::class, "show"]);
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -33,7 +33,9 @@ class MembersController extends Controller
     public function create()
     {
         //
-
+        if (session()->get("isAdmin") == false) {
+            return Redirect::to("members")->with("error", "You are not allowed to do that, not an admin");
+        }
         $parties = Party::all();
         $interests = Interest::all();
         $constituencies = Constituency::all();
@@ -69,6 +71,10 @@ class MembersController extends Controller
         $diff = abs(strtotime($date2) - strtotime($date1));
 
         $years = floor($diff / (365*60*60*24));
+
+        if (session()->get("isAdmin") == false) {
+            return Redirect::to("members")->with("error", "You are not allowed to do that, not an admin");
+        }
 
         if ($years < 18) {
             $v->errors()->add("date_of_birth", "User must be at least 18 years old");

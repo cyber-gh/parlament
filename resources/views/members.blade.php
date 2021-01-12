@@ -7,6 +7,10 @@
 @stop
 
 @section('content')
+    @if(Session::has("error"))
+        <p>{{Session::get("error")}}</p>
+    @endif
+
     <table>
 
         @foreach($members as $member)
@@ -27,7 +31,10 @@
         @endforeach
     </table>
 
-    <a href="{{route("members.create")}}">Add new</a>
+    @if(Session::has("isAdmin") && Session::get("isAdmin"))
+        <a href="{{route("members.create")}}">Add new</a>
+    @endif
+
 
 @stop
 
