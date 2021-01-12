@@ -17,12 +17,40 @@ class MembersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //
         $members = Member::with(["constituency", "party", "interests" ])->get();
+        if ($request->has('partyId')) {
+            $partyId = $request->query('partyId');
+            if ($partyId != -1) {
+                $members = $members->filter(function ($it) use ($partyId) {
+                    return $it->party->id == $partyId;
+                });
+            }
+        }
 
-        return view("members", compact('members'));
+        if ($request->has('interestId')) {
+            $interestId = $request->query('interestId');
+            if ($interestId != -1) {
+                $members = $members->filter(function ($it) use ($interestId) {
+                    foreach ($it->interests as $interest) {
+                        if ($interest->id == $interestId) {
+                            return true;
+                        }
+                        return false;
+                    }
+                });
+            }
+        }
+
+        $parties = Party::all();
+        $interests = Interest::all();
+        return view("members", [
+            'members' => $members,
+            "parties" => $parties,
+            "interests" => $interests,
+        ]);
     }
 
     /**

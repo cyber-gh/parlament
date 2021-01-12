@@ -11,6 +11,42 @@
         <p>{{Session::get("error")}}</p>
     @endif
 
+    <form action="{{route("members.index")}}" method="get">
+        <div class="form-group">
+            <label for="cars">Choose a party:</label>
+
+            <select name="partyId" id="party">
+
+
+                <option value="-1">None</option>
+                @foreach($parties as $party)
+                    <option  value="{{$party->id}}">{{$party->name}}</option>
+                @endforeach
+            </select>
+
+        </div>
+
+
+        <div class="form-group">
+            <label for="cars">Select your interests</label>
+
+            <select name="interestId" id="interest">
+
+                <option value="-1">None</option>
+                @foreach($interests as $interest)
+                    <option value="{{$interest->id}}">{{$interest->name}}</option>
+                @endforeach
+            </select>
+
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary submit-btn">Filter</button>
+        </div>
+    </form>
+
+    <a href="{{route("members.index")}}">Clear filter</a>
+
     <table>
 
         @foreach($members as $member)
