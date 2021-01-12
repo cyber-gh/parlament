@@ -1,6 +1,12 @@
+@extends('master')
+@section('title', 'Page Title')
 
-    <body>
+@section('sidebar')
+    @parent
+{{--   adition data to siderbar--}}
+@stop
 
+@section('content')
     <table>
 
         @foreach($members as $member)
@@ -14,10 +20,16 @@
                     <h3>Party Name  {{$member->party->name}}</h3>
                     <h3>Party principal_colour  {{$member->party->principal_colour}}</h3>
                     <h3>Intererests  {{$member->interests[0]->name}}</h3>
+
+                    <a href="{{route("members.show", [$member->id]) }}">Details</a>
                 </td>
             </tr>
         @endforeach
     </table>
 
-</body>
+    <a href="{{route("members.create")}}">Add new</a>
+
+@stop
+
+
 

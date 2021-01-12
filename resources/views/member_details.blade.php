@@ -1,4 +1,12 @@
+@extends('master')
+@section('title', 'Page Title')
 
+@section('sidebar')
+    @parent
+    {{--   adition data to siderbar--}}
+@stop
+
+@section('content')
 
 <table>
 
@@ -18,6 +26,8 @@
         </h4>
 
     @endforeach
+
+@stop
 
 
 

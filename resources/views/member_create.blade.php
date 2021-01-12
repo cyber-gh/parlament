@@ -1,3 +1,13 @@
+@extends('master')
+@section('title', 'Page Title')
+
+@section('sidebar')
+    @parent
+    {{--   adition data to siderbar--}}
+@stop
+
+@section('content')
+
 <form action="{{ route('members.store') }}" method="post">
     @csrf
     <div class="form-group">
@@ -68,3 +78,5 @@
         @endforeach
     </div>
 </form>
+
+@stop
